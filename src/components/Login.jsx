@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.css";
 import logImage from "../assets/log.svg";
 import register from "../assets/register.svg";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-const SignInSignUp = () => {
+const SignInSignUp = ({ setIsAuthenticated }) => {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
+  const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -14,8 +16,17 @@ const SignInSignUp = () => {
     const password = e.target[1].value;
 
     try {
-      const response = await axios.post("http://localhost:5000/api/login", { username, password });
+      const response = await axios.post("http://localhost:5000/api/login", {
+        username,
+        password,
+      });
+
       alert(response.data.message);
+
+      if (response.data.success) {
+        setIsAuthenticated(true);
+        navigate("/dashboard"); // Redirect if authentication is successful
+      }
     } catch (error) {
       alert("Login failed. Check credentials!");
     }
@@ -28,7 +39,11 @@ const SignInSignUp = () => {
     const password = e.target[2].value;
 
     try {
-      const response = await axios.post("http://localhost:5000/api/signup", { username, email, password });
+      const response = await axios.post("http://localhost:5000/api/signup", {
+        username,
+        email,
+        password,
+      });
       alert(response.data.message);
     } catch (error) {
       alert("Signup failed. Try again!");
@@ -104,10 +119,7 @@ const SignInSignUp = () => {
         <div className="panel left-panel">
           <div className="content">
             <h3>New here?</h3>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Debitis, ex ratione. Aliquid!
-            </p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
             <button className="btn transparent" onClick={() => setIsSignUpMode(true)}>
               Sign up
             </button>
@@ -117,10 +129,7 @@ const SignInSignUp = () => {
         <div className="panel right-panel">
           <div className="content">
             <h3>One of us?</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-              laboriosam ad deleniti.
-            </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
             <button className="btn transparent" onClick={() => setIsSignUpMode(false)}>
               Sign in
             </button>

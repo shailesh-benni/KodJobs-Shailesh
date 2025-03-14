@@ -9,6 +9,7 @@ const USERS_FILE = "./user.json";
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Function to read users from file
 const readUsers = () => {
@@ -47,10 +48,10 @@ app.post("/api/login", (req, res) => {
 
   const user = users.find((user) => user.username === username && user.password === password);
   if (!user) {
-    return res.status(400).json({ message: "Invalid credentials!" });
+    return res.status(400).json({ success: false, message: "Invalid credentials!" });
   }
 
-  res.status(200).json({ message: "Login successful!" });
+  res.status(200).json({ success: true, message: "Login successful!" });
 });
 
 // Start Server

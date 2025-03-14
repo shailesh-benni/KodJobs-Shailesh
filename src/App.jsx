@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import SignInSignUp from './components/Login';
 import JobList from './components/Jobs';
+import LandingPage from './components/Landing';
 import { useState } from 'react';
 
 function App() {
@@ -10,13 +11,16 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Default route for login */}
-        <Route path="/" element={<SignInSignUp setIsAuthenticated={setIsAuthenticated} />} />
+        {/* Landing page as default route */}
+        <Route path="/" element={<LandingPage />} />
+        
+        {/* Login route */}
+        <Route path="/login" element={<SignInSignUp setIsAuthenticated={setIsAuthenticated} />} />
         
         {/* Protected dashboard route */}
         <Route 
           path="/dashboard" 
-          element={isAuthenticated ? <JobList /> : <Navigate to="/" />} 
+          element={isAuthenticated ? <JobList /> : <Navigate to="/login" />} 
         />
       </Routes>
     </Router>

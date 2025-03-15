@@ -11,7 +11,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Landing page as default route */}
         <Route path="/" element={<LandingPage />} />
         
         {/* Login route */}

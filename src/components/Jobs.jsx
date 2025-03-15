@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Jobs.css';
-import { FaBell, FaUserCircle } from 'react-icons/fa';
+import { FaBell } from 'react-icons/fa';
 import JobDetailsModal from './JobDetailsModal';
 import logoImage from '../assets/log.svg';
+import ProfileSidebar from './ProfileSidebar';
+import avatarImage from '../assets/avatar.jpg';
 
 const DEFAULT_COMPANY_LOGO = logoImage;
 
@@ -22,6 +24,7 @@ const JobListings = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedJob, setSelectedJob] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -59,8 +62,20 @@ const JobListings = () => {
     fetchJobs();
   }, []);
 
+  const handleMainScroll = (e) => {
+    if (isSidebarOpen) {
+      const sidebarContent = document.querySelector('.scrollable-content');
+      if (sidebarContent) {
+        sidebarContent.scrollTop = e.target.scrollTop;
+      }
+    }
+  };
+
   return (
-    <div className="job-listings-page">
+    <div 
+      className="job-listings-page" 
+      onScroll={handleMainScroll}
+    >
       <nav className="navbar">
         <div className="nav-left">
           <div className="logo">KodJobs</div>
@@ -71,29 +86,28 @@ const JobListings = () => {
           </ul>
         </div>
 
-        <div className="nav-right">
-          <div className="search-bar">
-            <input
-              type="text"
-              placeholder="Search jobs here"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button className="search-button">
-              <i className="fas fa-search"></i>
-            </button>
-          </div>
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search jobs here"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button className="search-button">
+            <i className="fas fa-search"></i>
+          </button>
+        </div>
 
-          <div className="nav-icons">
-            <div className="notification-icon">
-              <FaBell />
-              <span className="notification-badge">7</span>
-            </div>
-            <div className="profile-icon">
-              <FaUserCircle />
-              <span className="profile-badge">2</span>
-            </div>
+        <div className="nav-right">
+          <div className="welcome-text">
+            Welcome, <span className="username">Alvin</span>
           </div>
+          <img 
+            src={avatarImage}
+            alt="Profile" 
+            className="nav-avatar"
+            onClick={() => setIsSidebarOpen(true)}
+          />
         </div>
       </nav>
 
@@ -159,6 +173,11 @@ const JobListings = () => {
           }}
         />
       )}
+
+      <ProfileSidebar 
+        isOpen={isSidebarOpen} 
+        onClose={() => setIsSidebarOpen(false)} 
+      />
     </div>
   );
 };

@@ -6,7 +6,7 @@ import jobSearchImage from '../assets/register.svg'; // Add your image to assets
 const LandingPage = () => {
   const navigate = useNavigate();
   const [currentWord, setCurrentWord] = useState(0);
-  const words = ['JOB', 'CAREER', 'FUTURE', 'SUCCESS', 'GROWTH'];
+  const words = ['JOB', 'CAREER', 'OPPORTUNITY', 'PLACEMENT', 'PROFESSION'];
 
   useEffect(() => {
     const interval = setInterval(() => {

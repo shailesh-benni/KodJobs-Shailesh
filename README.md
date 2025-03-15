@@ -1,12 +1,91 @@
-# React + Vite
+# React Job Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This is a **React-based Job Application Portal** that integrates with **Rapid API** to fetch job listings. It includes **user authentication (login/logout)** and allows users to browse and apply for jobs.
 
-Currently, two official plugins are available:
+## Features
+- 🔍 **Search and Browse Jobs** – Fetch job listings from Rapid API.
+- 👤 **User Authentication** – Login and Logout functionality.
+- 📝 **Review for Jobs** – Description of jobs.
+- ⚡ **Responsive Design** – Works on all devices.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+- **Frontend:** React.js, React Router
+- **State Management:** useState, useEffect
+- **API Integration:** Axios, Rapid API
+- **Authentication:** Local Storage 
+- **Styling:** Normal CSS file
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1️⃣ Clone the Repository
+```sh
+
+```
+
+### 2️⃣ Install Dependencies
+```sh
+npm install  # or yarn install
+```
+
+### 3️⃣ Set Up Environment Variables
+Create a `.env` file in the root directory and add:
+```env
+REACT_APP_RAPIDAPI_KEY=your_rapidapi_key
+REACT_APP_API_URL=https://your-rapidapi-endpoint.com
+```
+
+### 4️⃣ Start the Development Server
+```sh
+npm start  # or yarn start
+```
+
+## API Integration
+This app fetches job listings from **Rapid API** using `axios`:
+```js
+import axios from 'axios';
+
+const fetchJobs = async () => {
+  try {
+    const response = await axios.get(process.env.REACT_APP_API_URL, {
+      headers: { 'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_KEY }
+    });
+    console.log(response.data);
+  } catch (error) {
+    console.error("Error fetching jobs", error);
+  }
+};
+```
+
+## Authentication
+- Uses `useState` for user login state.
+- Stores user credentials in Local Storage.
+- Redirects authenticated users to the job listings page.
+
+## Folder Structure
+```
+📦 react-job-app
+├── 📂 src
+│   ├── 📂 components  # Reusable UI components
+│   ├── 📂 pages       # Login, Job Listings, Job Details
+│   ├── 📂 api         # API calls using Axios
+│   ├── App.js        # Main App component
+│   ├── index.js      # React entry point
+├── .env              # API Keys
+├── package.json      # Dependencies
+├── README.md         # Project Documentation
+```
+
+## Deployment
+To deploy the app:
+```sh
+npm run build
+```
+Use **Vercel, Netlify, or Firebase** for hosting.
+
+## Contribution
+Pull requests are welcome! Open an issue for bug reports or feature requests.
+
+## License
+MIT License © 2025 [Your Name]
+

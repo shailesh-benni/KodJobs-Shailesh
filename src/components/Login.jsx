@@ -10,6 +10,18 @@ const SignInSignUp = ({ setIsAuthenticated }) => {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   const navigate = useNavigate();
 
+  const calculateAge = (dob) => {
+    const birthDate = new Date(dob);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
+
   const handleSignIn = async (e) => {
     e.preventDefault();
     const username = e.target[0].value;
@@ -36,12 +48,17 @@ const SignInSignUp = ({ setIsAuthenticated }) => {
     e.preventDefault();
     const username = e.target[0].value;
     const email = e.target[1].value;
-    const password = e.target[2].value;
+    const dateOfBirth = e.target[2].value;
+    const password = e.target[3].value;
+    
+    const age = calculateAge(dateOfBirth);
 
     try {
       const response = await axios.post("http://localhost:5000/api/signup", {
         username,
         email,
+        dateOfBirth,
+        age,
         password,
       });
       alert(response.data.message);
@@ -91,6 +108,14 @@ const SignInSignUp = ({ setIsAuthenticated }) => {
             <div className="input-field">
               <i className="fas fa-envelope"></i>
               <input type="email" placeholder="Email" required />
+            </div>
+            <div className="input-field">
+              <i className="fas fa-calendar"></i>
+              <input
+                placeholder="DOB dd-mm-yyyy"
+                required 
+                max={new Date().toISOString().split('T')[0]}
+              />
             </div>
             <div className="input-field">
               <i className="fas fa-lock"></i>

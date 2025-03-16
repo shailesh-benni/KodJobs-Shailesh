@@ -2,56 +2,84 @@ const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const path = require("path");
 
 const app = express();
 const PORT = 5000;
-const USERS_FILE = "./user.json";
+const userFilePath = path.join(__dirname, "user.json");
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Function to read users from file
+// Read users from file
 const readUsers = () => {
   try {
-    const data = fs.readFileSync(USERS_FILE, "utf8");
+    const data = fs.readFileSync(userFilePath, "utf8");
     return JSON.parse(data);
   } catch (error) {
-    return [];
+    // If file doesn't exist or is empty, return initial structure
+    return {
+      users: [],
+      lastId: 0
+    };
   }
 };
 
-// Function to write users to file
-const writeUsers = (users) => {
-  fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), "utf8");
+// Write users to file
+const writeUsers = (data) => {
+  fs.writeFileSync(userFilePath, JSON.stringify(data, null, 2));
 };
-
-// Signup Route
-app.post("/api/signup", (req, res) => {
-  const { username, email, password } = req.body;
-  let users = readUsers();
-
-  const existingUser = users.find((user) => user.email === email);
-  if (existingUser) {
-    return res.status(400).json({ message: "User already exists!" });
-  }
-
-  users.push({ username, email, password });
-  writeUsers(users);
-  res.status(201).json({ message: "User registered successfully!" });
-});
 
 // Login Route
 app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
-  let users = readUsers();
+  const userData = readUsers();
+  
+  const user = userData.users.find(
+    (user) => user.username === username && user.password === password
+  );
 
-  const user = users.find((user) => user.username === username && user.password === password);
-  if (!user) {
-    return res.status(400).json({ success: false, message: "Invalid credentials!" });
+  if (user) {
+    res.json({ success: true, message: "Login successful!" });
+  } else {
+    res.status(401).json({ success: false, message: "Invalid credentials!" });
+  }
+});
+
+// Signup Route
+app.post("/api/signup", (req, res) => {
+  const { username, email, dateOfBirth, age, password } = req.body;
+  let userData = readUsers();
+
+  // Check if user already exists
+  const existingUser = userData.users.find(
+    (user) => user.username === username || user.email === email
+  );
+
+  if (existingUser) {
+    return res.status(400).json({ success: false, message: "User already exists!" });
   }
 
-  res.status(200).json({ success: true, message: "Login successful!" });
+  // Create new user with incremented ID
+  const newUser = {
+    id: userData.lastId + 1,
+    username,
+    email,
+    dateOfBirth,
+    age,
+    password,
+    createdAt: new Date().toISOString()
+  };
+
+  // Update userData
+  userData.users.push(newUser);
+  userData.lastId = newUser.id;
+
+  // Save to file
+  writeUsers(userData);
+
+  res.status(201).json({ success: true, message: "User registered successfully!" });
 });
 
 // Start Server

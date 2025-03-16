@@ -1,22 +1,41 @@
-[
-  {
-    "username": "apple",
-    "email": "apple@gmail.com",
-    "password": "1234"
-  },
-  {
-    "username": "snehit",
-    "email": "shenit@gmail.com",
-    "password": "12345678"
-  },
-  {
-    "username": "shailesh",
-    "email": "shailesh@gmail.com",
-    "password": "12345678"
-  },
-  {
-    "username": "bassu",
-    "email": "bassu@gmailcom",
-    "password": "12345678"
-  }
-]
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "john_doe",
+      "email": "john@example.com",
+      "dateOfBirth": "1995-06-15",
+      "age": 28,
+      "password": "password123",
+      "createdAt": "2024-03-19T10:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "username": "jane_smith",
+      "email": "jane@example.com",
+      "dateOfBirth": "1998-03-20",
+      "age": 25,
+      "password": "password456",
+      "createdAt": "2024-03-19T11:15:00.000Z"
+    },
+    {
+      "id": 3,
+      "username": "apple",
+      "email": "apple@gmail.com",
+      "dateOfBirth": "2004-05-17",
+      "age": 20,
+      "password": "1234",
+      "createdAt": "2025-03-16T04:21:51.708Z"
+    },
+    {
+      "id": 4,
+      "username": "mango",
+      "email": "mango@gmail.com",
+      "dateOfBirth": "18-09-2002",
+      "age": null,
+      "password": "1234",
+      "createdAt": "2025-03-16T05:00:08.075Z"
+    }
+  ],
+  "lastId": 4
+}

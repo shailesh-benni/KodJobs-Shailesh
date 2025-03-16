@@ -102,6 +102,25 @@ form.sign-in-form {
   font-weight: 500;
 }
 
+.input-field input[type="date"] {
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.input-field input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0.5);
+  opacity: 0.6;
+}
+
+.input-field input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
 .social-text {
   padding: 0.7rem 0;
   font-size: 1rem;

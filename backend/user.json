@@ -44,7 +44,16 @@
       "age": 20,
       "password": "123456789",
       "createdAt": "2025-03-16T06:42:14.562Z"
+    },
+    {
+      "id": 6,
+      "username": "harsh",
+      "email": "harsh@gmail.com",
+      "dateOfBirth": "19-09-2002",
+      "age": 22,
+      "password": "12345678",
+      "createdAt": "2025-03-16T07:29:26.594Z"
     }
   ],
-  "lastId": 5
+  "lastId": 6
 }

@@ -436,23 +436,4 @@ form.sign-in-form {
   background: rgba(255, 255, 255, 0.7);
 }
 
-.footer-text {
-  text-align: center;
-  padding: 20px 0;
-  color: #666;
-  font-size: 0.9rem;
-  position: absolute;
-  bottom: 900px;
-  width: 100%;
-  background: transparent;
-}
 
-.footer-text a {
-  color: #1e88e5;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.footer-text a:hover {
-  text-decoration: underline;
-}

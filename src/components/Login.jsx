@@ -4,8 +4,8 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css";
-import logImage from "../assets/login.png";
-import register from "../assets/newRegister.png";
+import logImage from "../assets/register.png";
+import register from "../assets/test.png";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const SignInSignUp = ({ setIsAuthenticated }) => {
@@ -184,7 +184,7 @@ const SignInSignUp = ({ setIsAuthenticated }) => {
         <div className="panel left-panel">
           <div className="content">
             <h3>New here?</h3>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+            <p> Join us today and unlock endless possibilities. Sign up now to be part of something amazing!.</p>
             <button className="btn transparent" onClick={() => setIsSignUpMode(true)}>
               Sign up
             </button>
@@ -194,7 +194,7 @@ const SignInSignUp = ({ setIsAuthenticated }) => {
         <div className="panel right-panel">
           <div className="content">
             <h3>One of us?</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p>If you're already one of us, log in and continue your journey with us!</p>
             <button className="btn transparent" onClick={() => setIsSignUpMode(false)}>
               Sign in
             </button>
@@ -202,9 +202,7 @@ const SignInSignUp = ({ setIsAuthenticated }) => {
           <img src={register} className="image" alt="" />
         </div>
       </div>
-      <div className="footer-text">
-        Developed by <a href="https://shaileshbenni.vercel.app/" target="_blank" rel="noopener noreferrer">Shailesh</a>
-      </div>
+     
     </div>
   );
 };

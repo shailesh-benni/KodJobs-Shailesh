@@ -202,6 +202,9 @@ const SignInSignUp = ({ setIsAuthenticated }) => {
           <img src={register} className="image" alt="" />
         </div>
       </div>
+      <div className="footer-text">
+        Developed by <a href="https://shaileshbenni.vercel.app/" target="_blank" rel="noopener noreferrer">Shailesh</a>
+      </div>
     </div>
   );
 };

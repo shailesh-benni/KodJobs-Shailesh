@@ -4,8 +4,8 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css";
-import logImage from "../assets/log.svg";
-import register from "../assets/register.svg";
+import logImage from "../assets/login.png";
+import register from "../assets/newRegister.png";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const SignInSignUp = ({ setIsAuthenticated }) => {

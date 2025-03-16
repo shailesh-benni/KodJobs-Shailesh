@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Landing.css';
 import { useNavigate } from 'react-router-dom';
-import jobSearchImage from '../assets/register.svg'; // Add your image to assets folder
+import jobSearchImage from '../assets/landing.png'; // Add your image to assets folder
 
 const LandingPage = () => {
   const navigate = useNavigate();

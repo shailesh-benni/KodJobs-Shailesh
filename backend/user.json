@@ -35,7 +35,16 @@
       "age": null,
       "password": "1234",
       "createdAt": "2025-03-16T05:00:08.075Z"
+    },
+    {
+      "id": 5,
+      "username": "shailesh",
+      "email": "shailesh@gmail.com",
+      "dateOfBirth": "17-05-2004",
+      "age": 20,
+      "password": "123456789",
+      "createdAt": "2025-03-16T06:42:14.562Z"
     }
   ],
-  "lastId": 4
+  "lastId": 5
 }

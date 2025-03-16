@@ -417,3 +417,21 @@ form.sign-in-form {
     left: 50%;
   }
 }
+
+/* Add these styles to your existing Login.css */
+.Toastify__toast {
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+}
+
+.Toastify__toast--success {
+  background: #74ff6a;
+}
+
+.Toastify__toast--error {
+  background: #e95e5e;
+}
+
+.Toastify__progress-bar {
+  background: rgba(255, 255, 255, 0.7);
+}

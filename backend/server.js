@@ -41,7 +41,27 @@ app.post("/api/login", (req, res) => {
   );
 
   if (user) {
-    res.json({ success: true, message: "Login successful!" });
+    // Find the user from users array to get all data
+    const foundUser = userData.users.find(u => u.username === username);
+    
+    if (foundUser) {
+      const userDataToSend = {
+        username: foundUser.username,
+        email: foundUser.email,
+        age: foundUser.age,
+        dateOfBirth: foundUser.dateOfBirth
+      };
+
+      console.log('Sending user data:', userDataToSend); // For debugging
+
+      res.json({ 
+        success: true, 
+        message: "Login successful!",
+        user: userDataToSend
+      });
+    } else {
+      res.status(401).json({ success: false, message: "User not found!" });
+    }
   } else {
     res.status(401).json({ success: false, message: "Invalid credentials!" });
   }

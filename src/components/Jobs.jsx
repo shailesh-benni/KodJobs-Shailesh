@@ -25,8 +25,21 @@ const JobListings = () => {
   const [selectedJob, setSelectedJob] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
+    // Get user data from localStorage
+    try {
+      const userStr = localStorage.getItem('currentUser');
+      if (userStr) {
+        const userData = JSON.parse(userStr);
+        console.log('Retrieved user data:', userData); // For debugging
+        setCurrentUser(userData);
+      }
+    } catch (error) {
+      console.error('Error parsing user data:', error);
+    }
+
     const fetchJobs = async () => {
       try {
         const response = await fetch('https://jsearch.p.rapidapi.com/search?query=software%20developer&num_pages=1', {
@@ -100,7 +113,7 @@ const JobListings = () => {
 
         <div className="nav-right">
           <div className="welcome-text">
-            Welcome, <span className="username">Alvin</span>
+            Welcome, <span className="username">{currentUser?.username || 'User'}</span>
           </div>
           <img 
             src={avatarImage}
@@ -176,7 +189,8 @@ const JobListings = () => {
 
       <ProfileSidebar 
         isOpen={isSidebarOpen} 
-        onClose={() => setIsSidebarOpen(false)} 
+        onClose={() => setIsSidebarOpen(false)}
+        userData={currentUser}
       />
     </div>
   );

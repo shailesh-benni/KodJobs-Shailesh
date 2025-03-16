@@ -3,7 +3,7 @@ import './ProfileSidebar.css';
 import { FaTimes, FaMoneyBillWave, FaUserTie, FaClock, FaBriefcase } from 'react-icons/fa';
 import avatarImage from '../assets/avatar.jpg';
 
-const ProfileSidebar = ({ isOpen, onClose }) => {
+const ProfileSidebar = ({ isOpen, onClose, userData }) => {
   useEffect(() => {
     // Add/remove class to body when sidebar opens/closes
     if (isOpen) {
@@ -47,8 +47,8 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
           alt="Profile" 
           className="profile-avatar"
         />
-        <h2 className="profile-name">Alvin Elian</h2>
-        <p className="profile-title">UI/UX Designer</p>
+        <h2 className="profile-name">{userData?.username || 'User'}</h2>
+        <p className="profile-title">{userData?.email || 'Email not available'}</p>
         <div className="availability-badge">
           <span>●</span>
           Available for work
@@ -60,45 +60,31 @@ const ProfileSidebar = ({ isOpen, onClose }) => {
           <h3 className="details-heading">Personal Details</h3>
           
           <div className="detail-item">
-            <FaMoneyBillWave className="detail-icon" />
-            <div>
-              <strong>Salary Expectations</strong>
-              <div>$100/Hours</div>
-            </div>
-          </div>
-
-          <div className="detail-item">
             <FaUserTie className="detail-icon" />
-            <div>
-              <strong>Seniority Level</strong>
-              <div>Senior Level</div>
-            </div>
+            <strong>Email</strong>
+            <div>{userData?.email || 'Not available'}</div>
           </div>
 
           <div className="detail-item">
             <FaClock className="detail-icon" />
-            <div>
-              <strong>Work Experience</strong>
-              <div>2 Years Experience</div>
-            </div>
+            <strong>Age</strong>
+            <div>{userData?.age || 'Not specified'} years old</div>
           </div>
 
           <div className="detail-item">
             <FaBriefcase className="detail-icon" />
-            <div>
-              <strong>Employment Type</strong>
-              <div>Full Time, Part Time</div>
-            </div>
+            <strong>Date of Birth</strong>
+            <div>{userData?.dateOfBirth || 'Not specified'}</div>
           </div>
         </div>
 
         <div className="details-section">
           <h3 className="details-heading">Skills</h3>
           <div className="skills-container">
-            <span className="skill-tag">UI Designer</span>
-            <span className="skill-tag">UX Designer</span>
-            <span className="skill-tag">Figma</span>
-            <span className="skill-tag">Product Designer</span>
+            <span className="skill-tag">Java Developer</span>
+            <span className="skill-tag">MERN Stack Developer</span>
+            <span className="skill-tag">Front End Developer</span>
+            <span className="skill-tag">UI UX Designer</span>
           </div>
         </div>
       </div>

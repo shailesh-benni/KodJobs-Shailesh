@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css";
 import logImage from "../assets/log.svg";
 import register from "../assets/register.svg";
@@ -11,7 +13,8 @@ const SignInSignUp = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
 
   const calculateAge = (dob) => {
-    const birthDate = new Date(dob);
+    const [day, month, year] = dob.split('-').map(Number);
+    const birthDate = new Date(year, month - 1, day);
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
     const monthDiff = today.getMonth() - birthDate.getMonth();
@@ -33,14 +36,32 @@ const SignInSignUp = ({ setIsAuthenticated }) => {
         password,
       });
 
-      alert(response.data.message);
+      console.log('Login response:', response.data); // For debugging
 
-      if (response.data.success) {
-        setIsAuthenticated(true);
-        navigate("/dashboard"); // Redirect if authentication is successful
+      if (response.data.success && response.data.user) {
+        // Store user data in localStorage
+        localStorage.setItem('currentUser', JSON.stringify(response.data.user));
+
+        toast.success('Login successful!', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        
+        setTimeout(() => {
+          setIsAuthenticated(true);
+          navigate("/dashboard");
+        }, 3000);
       }
     } catch (error) {
-      alert("Login failed. Check credentials!");
+      console.error('Login error:', error);
+      toast.error('Login failed. Check credentials!', {
+        position: "top-right",
+        autoClose: 1000,
+      });
     }
   };
 
@@ -51,9 +72,9 @@ const SignInSignUp = ({ setIsAuthenticated }) => {
     const dateOfBirth = e.target[2].value;
     const password = e.target[3].value;
     
-    const age = calculateAge(dateOfBirth);
-
     try {
+      const age = calculateAge(dateOfBirth);
+      
       const response = await axios.post("http://localhost:5000/api/signup", {
         username,
         email,
@@ -61,14 +82,33 @@ const SignInSignUp = ({ setIsAuthenticated }) => {
         age,
         password,
       });
-      alert(response.data.message);
+
+      if (response.data.success) {
+        toast.success('Registration successful!', {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        
+        // Clear form and switch to login mode after successful registration
+        setTimeout(() => {
+          setIsSignUpMode(false);
+        }, 1000);
+      }
     } catch (error) {
-      alert("Signup failed. Try again!");
+      toast.error('Registration failed. Try again!', {
+        position: "top-right",
+        autoClose: 1000,
+      });
     }
   };
 
   return (
     <div className={`container ${isSignUpMode ? "sign-up-mode" : ""}`}>
+      <ToastContainer />
       <div className="forms-container">
         <div className="signin-signup">
           <form onSubmit={handleSignIn} className="sign-in-form">

@@ -81,10 +81,11 @@ const ProfileSidebar = ({ isOpen, onClose, userData }) => {
         <div className="details-section">
           <h3 className="details-heading">Skills</h3>
           <div className="skills-container">
-            <span className="skill-tag">Java Developer</span>
-            <span className="skill-tag">MERN Stack Developer</span>
-            <span className="skill-tag">Front End Developer</span>
-            <span className="skill-tag">UI UX Designer</span>
+            <span className="skill-tag">Java </span>
+            <span className="skill-tag">Python</span>
+            <span className="skill-tag">ReactJS </span>
+            <span className="skill-tag">JavaScript</span>
+            
           </div>
         </div>
       </div>

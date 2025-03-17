@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css";
@@ -12,17 +11,13 @@ const SignInSignUp = ({ setIsAuthenticated }) => {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   const navigate = useNavigate();
 
-  const calculateAge = (dob) => {
-    const [day, month, year] = dob.split('-').map(Number);
-    const birthDate = new Date(year, month - 1, day);
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-    
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
+  // Hardcoded user data
+  const hardcodedUser = {
+    username: "shailesh",
+    password: "1234",
+    email: "shailesh@example.com",
+    age: 20,
+    dateOfBirth: "17-05-2004"
   };
 
   const handleSignIn = async (e) => {
@@ -30,80 +25,46 @@ const SignInSignUp = ({ setIsAuthenticated }) => {
     const username = e.target[0].value;
     const password = e.target[1].value;
 
-    try {
-      const response = await axios.post("http://localhost:5000/api/login", {
-        username,
-        password,
-      });
+    // Check against hardcoded credentials
+    if (username === hardcodedUser.username && password === hardcodedUser.password) {
+      // Store user data in localStorage
+      localStorage.setItem('currentUser', JSON.stringify(hardcodedUser));
 
-      console.log('Login response:', response.data); // For debugging
-
-      if (response.data.success && response.data.user) {
-        // Store user data in localStorage
-        localStorage.setItem('currentUser', JSON.stringify(response.data.user));
-
-        toast.success('Login successful!', {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-        
-        setTimeout(() => {
-          setIsAuthenticated(true);
-          navigate("/dashboard");
-        }, 3000);
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      toast.error('Login failed. Check credentials!', {
+      toast.success('Login successful!', {
         position: "top-right",
-        autoClose: 1000,
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      
+      setTimeout(() => {
+        setIsAuthenticated(true);
+        navigate("/dashboard");
+      }, 3000);
+    } else {
+      toast.error('Invalid credentials! Use username: shailesh, password: 1234', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
       });
     }
   };
 
-  const handleSignUp = async (e) => {
+  const handleSignUp = (e) => {
     e.preventDefault();
-    const username = e.target[0].value;
-    const email = e.target[1].value;
-    const dateOfBirth = e.target[2].value;
-    const password = e.target[3].value;
-    
-    try {
-      const age = calculateAge(dateOfBirth);
-      
-      const response = await axios.post("http://localhost:5000/api/signup", {
-        username,
-        email,
-        dateOfBirth,
-        age,
-        password,
-      });
-
-      if (response.data.success) {
-        toast.success('Registration successful!', {
-          position: "top-right",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-        
-        // Clear form and switch to login mode after successful registration
-        setTimeout(() => {
-          setIsSignUpMode(false);
-        }, 1000);
-      }
-    } catch (error) {
-      toast.error('Registration failed. Try again!', {
-        position: "top-right",
-        autoClose: 1000,
-      });
-    }
+    toast.info('Please use the login form with username: shailesh, password: 1234', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
   };
 
   return (
@@ -111,7 +72,7 @@ const SignInSignUp = ({ setIsAuthenticated }) => {
       <ToastContainer />
       <div className="forms-container">
         <div className="signin-signup">
-          <form onSubmit={handleSignIn} className="sign-in-form">
+          <form action="#" className="sign-in-form" onSubmit={handleSignIn}>
             <h2 className="title">Sign in</h2>
             <div className="input-field">
               <i className="fas fa-user"></i>

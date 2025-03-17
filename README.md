@@ -1,5 +1,8 @@
 # React Job Application
-
+### 1️⃣ Check out 
+```sh
+https://kod-nest-jobs.vercel.app/
+```
 ## Overview
 This is a **React-based Job Application Portal** that integrates with **Rapid API** to fetch job listings. It includes **user authentication (login/logout)** and allows users to browse and apply for jobs.
 
@@ -87,5 +90,5 @@ Use **Vercel, Netlify, or Firebase** for hosting.
 Pull requests are welcome! Open an issue for bug reports or feature requests.
 
 ## License
-MIT License © 2025 [Your Name]
+MIT License © 2025 Shailesh
 

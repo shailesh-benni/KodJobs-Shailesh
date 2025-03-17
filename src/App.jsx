@@ -16,10 +16,10 @@ function App() {
         {/* Login route */}
         <Route path="/login" element={<SignInSignUp setIsAuthenticated={setIsAuthenticated} />} />
         
-        {/* Protected dashboard route */}
+        {/* Remove authentication check for dashboard */}
         <Route 
           path="/dashboard" 
-          element={isAuthenticated ? <JobList /> : <Navigate to="/login" />} 
+          element={<JobList />} 
         />
       </Routes>
     </Router>

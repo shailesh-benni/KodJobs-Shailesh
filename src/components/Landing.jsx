@@ -6,6 +6,7 @@ import jobSearchImage from '../assets/landing.png'; // Add your image to assets 
 const LandingPage = () => {
   const navigate = useNavigate();
   const [currentWord, setCurrentWord] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const words = ['JOB', 'CAREER', 'OPPORTUNITY', 'PLACEMENT', 'PROFESSION'];
 
   useEffect(() => {
@@ -14,6 +15,13 @@ const LandingPage = () => {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
+
+  const handleStartJourney = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      navigate('/login');
+    }, 2000); // 2 second delay for the animation
+  };
 
   return (
     <div className="landing-container">
@@ -40,10 +48,18 @@ const LandingPage = () => {
             Its your future. Come find it.
           </p>
           <button 
-            className="start-button"
-            onClick={() => navigate('/login')}
+            className={`start-button ${isLoading ? 'loading' : ''}`}
+            onClick={handleStartJourney}
+            disabled={isLoading}
           >
-            Start Journey
+            {isLoading ? (
+              <div className="loader-container">
+                <div className="loader"></div>
+                <span>Starting Journey...</span>
+              </div>
+            ) : (
+              'Start Journey'
+            )}
           </button>
         </div>
         <div className="right-section">

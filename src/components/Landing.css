@@ -317,7 +317,7 @@
   .footer-text {
     position: relative; /* Change from absolute to relative */
     bottom: unset; /* Remove absolute positioning */
-    margin-top: -10px; /* Space between button and footer */
+    margin-top: -20px; /* Space between button and footer */
     font-size: 0.9rem;
     color: #475569;
     text-align: center;
@@ -340,6 +340,6 @@
 
     .footer-text {
         font-size: 0.8rem;
-        margin-bottom: 10px; /* Add spacing */
+        margin-bottom: 40px; 
     }
 }
